@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Lenis from "lenis";
 import spectatorCover from "@/assets/journal/spectator-cover.png.asset.json";
 import sketchPortrait from "@/assets/journal/sketch-portrait.jpg.asset.json";
@@ -9,6 +9,11 @@ import danceMedal from "@/assets/journal/dance-medal.jpg.asset.json";
 import danceStage from "@/assets/journal/dance-stage.jpg.asset.json";
 import chessPhoto from "@/assets/journal/chess.jpg.asset.json";
 import cameraPhoto from "@/assets/journal/camera.jpg.asset.json";
+import usherettePhoto from "@/assets/journal/usherette.jpg.asset.json";
+import raszmaYoutube from "@/assets/journal/raszma-youtube.jpg.asset.json";
+import gameValorant from "@/assets/journal/game-valorant.jpg.asset.json";
+import gameGenshin from "@/assets/journal/game-genshin.jpg.asset.json";
+import gameCrossfire from "@/assets/journal/game-crossfire.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
