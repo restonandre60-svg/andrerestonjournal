@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Lenis from "lenis";
 import spectatorCover from "@/assets/journal/spectator-cover.png.asset.json";
 import sketchPortrait from "@/assets/journal/sketch-portrait.jpg.asset.json";
@@ -9,6 +9,11 @@ import danceMedal from "@/assets/journal/dance-medal.jpg.asset.json";
 import danceStage from "@/assets/journal/dance-stage.jpg.asset.json";
 import chessPhoto from "@/assets/journal/chess.jpg.asset.json";
 import cameraPhoto from "@/assets/journal/camera.jpg.asset.json";
+import usherettePhoto from "@/assets/journal/usherette.jpg.asset.json";
+import raszmaYoutube from "@/assets/journal/raszma-youtube.jpg.asset.json";
+import gameValorant from "@/assets/journal/game-valorant.jpg.asset.json";
+import gameGenshin from "@/assets/journal/game-genshin.jpg.asset.json";
+import gameCrossfire from "@/assets/journal/game-crossfire.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -289,180 +294,293 @@ function Projects() {
 }
 
 function LifeBento() {
+  const [openId, setOpenId] = useState<string | null>(null);
+  const open = openId ? bentoItems.find((b) => b.id === openId) ?? null : null;
+
   return (
     <section id="life" className="px-6 py-24 sm:py-32 max-w-7xl mx-auto">
       <SectionHeader
         eyebrow="Life — Bento"
         title="Everything else I am."
-        note="A mosaic of the quieter rooms — where the writing, the moves, and the wins live."
+        note="Tap any tile to open it — a mosaic of the quieter rooms where the writing, the moves, and the wins live."
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[minmax(180px,auto)]">
-        {/* The Spectator — large */}
-        <FadeUp className="md:col-span-2 md:row-span-2">
-          <article className="relative h-full rounded-3xl overflow-hidden hairline bg-gradient-to-br from-[#131322] to-[#0b0b14] p-8 sm:p-10 flex flex-col justify-between min-h-[420px]">
-            <img
-              src={spectatorCover.url}
-              alt="The Spectator — novel cover"
-              className="absolute inset-0 h-full w-full object-cover opacity-60"
-              loading="lazy"
-            />
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-gradient-to-t from-[#0b0b14] via-[#0b0b14]/70 to-[#0b0b14]/20"
-            />
-            <div className="relative">
-              <p className="text-[10px] uppercase tracking-[0.35em] text-muted-foreground mb-4">
-                Novel · unfinished
-              </p>
-              <h3 className="font-editorial text-4xl sm:text-6xl leading-[1.02] italic">
-                The Spectator
-              </h3>
-              <WordReveal
-                text="Some truths are not meant to be seen — only carried, quietly, through the long streets of the city."
-                className="mt-6 font-editorial text-lg sm:text-xl text-muted-foreground max-w-lg"
-              />
-            </div>
-            <div className="relative mt-8 flex items-center justify-between text-xs text-muted-foreground">
-              <span>a novel by Andre Reston</span>
-              <span className="hairline rounded-full px-3 py-1">ch. 07 / drafting</span>
-            </div>
-          </article>
-        </FadeUp>
-
-        {/* Dance winner */}
-        <FadeUp delay={0.05}>
-          <article className="relative h-full rounded-3xl hairline overflow-hidden bg-card/40 flex flex-col justify-between min-h-[180px]">
-            <img
-              src={danceMedal.url}
-              alt="Holding the 1st place medal"
-              className="absolute inset-0 h-full w-full object-cover opacity-55"
-              loading="lazy"
-            />
-            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
-            <div className="relative p-6 flex items-center justify-between">
-              <span className="text-[10px] uppercase tracking-[0.3em] text-primary">
-                1st place
-              </span>
-              <span className="text-xl">🏆</span>
-            </div>
-            <div className="relative p-6 pt-0">
-              <h3 className="font-display text-2xl font-semibold">Dance</h3>
-              <p className="text-xs text-muted-foreground mt-1">
-                Champions — medal, ours.
-              </p>
-            </div>
-          </article>
-        </FadeUp>
-
-        {/* Chess */}
-        <FadeUp delay={0.1}>
-          <article className="relative h-full rounded-3xl hairline overflow-hidden bg-card/40 min-h-[180px] flex flex-col justify-between">
-            <img
-              src={chessPhoto.url}
-              alt="Match night — chess"
-              className="absolute inset-0 h-full w-full object-cover opacity-50"
-              loading="lazy"
-            />
-            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
-            <div className="relative p-6 flex-1" />
-            <div className="relative p-6 pt-0">
-              <h3 className="font-display text-2xl font-semibold">Chess</h3>
-              <p className="text-xs text-muted-foreground mt-1">
-                Endgames &gt; openings.
-              </p>
-            </div>
-          </article>
-        </FadeUp>
-
-        {/* Poetry */}
-        <FadeUp delay={0.15}>
-          <article className="h-full rounded-3xl hairline p-6 bg-card/40 min-h-[180px] flex flex-col justify-between">
-            <p className="font-editorial italic text-sm text-muted-foreground leading-relaxed">
-              “…you're the rainbow that ease my pain.”
-            </p>
-            <div>
-              <h3 className="font-display text-2xl font-semibold">Poetry</h3>
-              <p className="text-xs text-muted-foreground mt-1">
-                Small verses, kept close.
-              </p>
-            </div>
-          </article>
-        </FadeUp>
-
-        {/* Photography */}
-        <FadeUp delay={0.2}>
-          <article className="relative h-full rounded-3xl hairline overflow-hidden bg-card/40 min-h-[180px] flex flex-col justify-between">
-            <img
-              src={cameraPhoto.url}
-              alt="Behind the viewfinder"
-              className="absolute inset-0 h-full w-full object-cover opacity-55"
-              loading="lazy"
-            />
-            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-            <div className="relative p-6 flex items-center gap-3">
-              <span className="text-xs text-muted-foreground">50mm · f/1.8</span>
-            </div>
-            <div className="relative p-6 pt-0">
-              <h3 className="font-display text-2xl font-semibold">Photography</h3>
-              <p className="text-xs text-muted-foreground mt-1">
-                Learning to see slowly.
-              </p>
-            </div>
-          </article>
-        </FadeUp>
-
-        {/* Games */}
-        <FadeUp delay={0.25}>
-          <article className="h-full rounded-3xl hairline p-6 bg-card/40 min-h-[180px] flex flex-col justify-between">
-            <div className="flex gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-primary" />
-              <span className="h-2 w-2 rounded-full bg-primary/60" />
-              <span className="h-2 w-2 rounded-full bg-primary/30" />
-            </div>
-            <div>
-              <h3 className="font-display text-2xl font-semibold">Games</h3>
-              <p className="text-xs text-muted-foreground mt-1">
-                Valorant, Genshin, CrossFire.
-              </p>
-            </div>
-          </article>
-        </FadeUp>
-
-        {/* Arts */}
-        <FadeUp delay={0.3}>
-          <article className="relative h-full rounded-3xl hairline overflow-hidden bg-card/40 min-h-[180px] flex flex-col justify-between">
-            <div className="absolute inset-0 grid grid-cols-2">
-              <img src={sketchPortrait.url} alt="Pencil portrait sketch" className="h-full w-full object-cover opacity-70" loading="lazy" />
-              <img src={sketchRose.url} alt="Pencil rose sketch" className="h-full w-full object-cover opacity-70" loading="lazy" />
-            </div>
-            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
-            <div className="relative p-6 flex-1" />
-            <div className="relative p-6 pt-0">
-              <h3 className="font-display text-2xl font-semibold">Sketches</h3>
-              <p className="text-xs text-muted-foreground mt-1">
-                Pencil roses & quiet portraits.
-              </p>
-            </div>
-          </article>
-        </FadeUp>
-
-        {/* Usherette */}
-        <FadeUp delay={0.35}>
-          <article className="h-full rounded-3xl hairline p-6 bg-card/40 min-h-[180px] flex flex-col justify-between">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-              Student service
-            </span>
-            <div>
-              <h3 className="font-display text-2xl font-semibold">Usherette</h3>
-              <p className="text-xs text-muted-foreground mt-1">
-                Holding the door for other people's nights.
-              </p>
-            </div>
-          </article>
-        </FadeUp>
+        {bentoItems.map((b, i) => (
+          <FadeUp key={b.id} delay={i * 0.04} className={b.span ?? ""}>
+            <motion.button
+              layoutId={`bento-${b.id}`}
+              onClick={() => setOpenId(b.id)}
+              className={
+                "group relative w-full h-full text-left rounded-3xl hairline overflow-hidden bg-card/40 flex flex-col justify-between " +
+                (b.tall ? "min-h-[420px]" : "min-h-[180px]") +
+                " hover:-translate-y-0.5 hover:border-primary/40 transition-all duration-300 cursor-pointer"
+              }
+            >
+              <BentoBackground item={b} />
+              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+              <div className="relative p-6 flex items-start justify-between">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-primary">
+                  {b.tag}
+                </span>
+                <span className="text-muted-foreground/80 text-xs opacity-0 group-hover:opacity-100 transition">
+                  expand ↗
+                </span>
+              </div>
+              <div className="relative p-6 pt-0">
+                <motion.h3
+                  layoutId={`bento-title-${b.id}`}
+                  className={
+                    "font-display font-semibold " +
+                    (b.tall
+                      ? "text-4xl sm:text-5xl leading-[1.02]"
+                      : "text-2xl")
+                  }
+                >
+                  {b.title}
+                </motion.h3>
+                <p className="text-xs text-muted-foreground mt-1">{b.blurb}</p>
+              </div>
+            </motion.button>
+          </FadeUp>
+        ))}
       </div>
+
+      <BentoExpanded item={open} onClose={() => setOpenId(null)} />
     </section>
+  );
+}
+
+type BentoItem = {
+  id: string;
+  title: string;
+  tag: string;
+  blurb: string;
+  detail: string;
+  images: string[];
+  span?: string;
+  tall?: boolean;
+  meta?: { label: string; value: string }[];
+  link?: { label: string; href: string };
+};
+
+const bentoItems: BentoItem[] = [
+  {
+    id: "spectator",
+    title: "The Spectator",
+    tag: "Novel · unfinished",
+    blurb: "a novel by Andre Reston — ch. 07 / drafting",
+    detail:
+      "Some truths are not meant to be seen — only carried, quietly, through the long streets of the city. He watched the lamp gutter. Some nights the sentence writes itself; most nights it does not.",
+    images: [spectatorCover.url],
+    span: "md:col-span-2 md:row-span-2",
+    tall: true,
+  },
+  {
+    id: "dance",
+    title: "Dance",
+    tag: "1st place",
+    blurb: "Champions — medal, ours.",
+    detail:
+      "Neon smoke, the stage lights breaking against our jackets. We hit the last count together and the crowd fell silent for a second — then everything erupted.",
+    images: [danceMedal.url, danceStage.url],
+    meta: [{ label: "Result", value: "🏆 1st Place" }],
+  },
+  {
+    id: "chess",
+    title: "Chess",
+    tag: "Board",
+    blurb: "Endgames > openings.",
+    detail:
+      "I lose middlegames I should win, and win endgames I should lose. There is a poem hidden inside every tempo.",
+    images: [chessPhoto.url],
+  },
+  {
+    id: "video",
+    title: "Video Editing",
+    tag: "YouTube · @rszma1",
+    blurb: "RASZMA — anime MV & shorts editor.",
+    detail:
+      "I cut anime music videos and shorts under the handle RASZMA. It is where the timing brain from dance meets the frame-by-frame patience of writing.",
+    images: [raszmaYoutube.url],
+    meta: [
+      { label: "Channel", value: "@rszma1" },
+      { label: "Subs", value: "449+" },
+      { label: "Focus", value: "AMV · Shorts · Anime edits" },
+    ],
+    link: { label: "Open channel", href: "https://www.youtube.com/@rszma1" },
+  },
+  {
+    id: "poetry",
+    title: "Poetry",
+    tag: "Verses",
+    blurb: "Small verses, kept close.",
+    detail:
+      "In my catastrophic stormy rain, you're the rainbow that ease my pain. Deep down you're my greatest gain — that I won't let you in vain.",
+    images: [],
+  },
+  {
+    id: "photography",
+    title: "Photography",
+    tag: "50mm · f/1.8",
+    blurb: "Learning to see slowly.",
+    detail:
+      "Mostly quiet frames — light through a window, someone mid-thought. Approach photography, then subtract until only the moment is left.",
+    images: [cameraPhoto.url],
+  },
+  {
+    id: "games",
+    title: "Games",
+    tag: "Play",
+    blurb: "Valorant · Genshin · CrossFire.",
+    detail:
+      "Tactical shooters for the reflex, Genshin for the world, CrossFire for the nostalgia. Three very different rooms of the same house.",
+    images: [gameValorant.url, gameGenshin.url, gameCrossfire.url],
+  },
+  {
+    id: "sketches",
+    title: "Sketches",
+    tag: "Pencil",
+    blurb: "Pencil roses & quiet portraits.",
+    detail:
+      "Graphite on cheap paper. Portraits first, then roses when the hand needs to stop thinking.",
+    images: [sketchPortrait.url, sketchRose.url],
+  },
+  {
+    id: "usherette",
+    title: "Usherette",
+    tag: "Student service",
+    blurb: "Holding the door for other people's nights.",
+    detail:
+      "Parade banners, umbrellas against the sun, and the small choreography of guiding people to their seats. A quiet way to belong to a night that isn't yours.",
+    images: [usherettePhoto.url],
+  },
+];
+
+function BentoBackground({ item }: { item: BentoItem }) {
+  if (item.images.length === 0) {
+    return (
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
+    );
+  }
+  if (item.images.length === 1) {
+    return (
+      <img
+        src={item.images[0]}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover opacity-55"
+        loading="lazy"
+      />
+    );
+  }
+  return (
+    <div aria-hidden className={"absolute inset-0 grid " + (item.images.length === 2 ? "grid-cols-2" : "grid-cols-3")}>
+      {item.images.map((src, i) => (
+        <img key={i} src={src} alt="" className="h-full w-full object-cover opacity-60" loading="lazy" />
+      ))}
+    </div>
+  );
+}
+
+function BentoExpanded({ item, onClose }: { item: BentoItem | null; onClose: () => void }) {
+  useEffect(() => {
+    if (!item) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [item, onClose]);
+
+  return (
+    <AnimatePresence>
+      {item && (
+        <motion.div
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+            onClick={onClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          />
+          <motion.div
+            layoutId={`bento-${item.id}`}
+            className="relative w-full max-w-3xl max-h-[88vh] overflow-y-auto rounded-3xl hairline bg-card/95 shadow-2xl"
+          >
+            <div className="relative">
+              <div className="relative h-56 sm:h-80 overflow-hidden rounded-t-3xl">
+                <BentoBackground item={item} />
+                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+              </div>
+              <button
+                onClick={onClose}
+                aria-label="Close"
+                className="absolute top-4 right-4 h-9 w-9 rounded-full glass flex items-center justify-center text-sm hover:bg-white/10 transition"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="p-6 sm:p-10 -mt-16 relative">
+              <p className="text-[10px] uppercase tracking-[0.35em] text-primary mb-3">
+                {item.tag}
+              </p>
+              <motion.h3
+                layoutId={`bento-title-${item.id}`}
+                className="font-display text-3xl sm:text-5xl font-semibold leading-[1.05]"
+              >
+                {item.title}
+              </motion.h3>
+              <p className="mt-6 font-editorial text-lg sm:text-xl leading-[1.7] text-muted-foreground">
+                {item.detail}
+              </p>
+              {item.meta && item.meta.length > 0 && (
+                <dl className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {item.meta.map((m) => (
+                    <div key={m.label} className="hairline rounded-2xl p-4">
+                      <dt className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                        {m.label}
+                      </dt>
+                      <dd className="mt-1 text-sm font-medium">{m.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+              {item.images.length > 1 && (
+                <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {item.images.map((src, i) => (
+                    <img
+                      key={i}
+                      src={src}
+                      alt=""
+                      className="h-32 w-full object-cover rounded-2xl hairline"
+                      loading="lazy"
+                    />
+                  ))}
+                </div>
+              )}
+              {item.link && (
+                <a
+                  href={item.link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-8 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:brightness-110 transition"
+                >
+                  {item.link.label} ↗
+                </a>
+              )}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
