@@ -2,6 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Lenis from "lenis";
+import spectatorCover from "@/assets/journal/spectator-cover.png.asset.json";
+import sketchPortrait from "@/assets/journal/sketch-portrait.jpg.asset.json";
+import sketchRose from "@/assets/journal/sketch-rose.jpg.asset.json";
+import danceMedal from "@/assets/journal/dance-medal.jpg.asset.json";
+import danceStage from "@/assets/journal/dance-stage.jpg.asset.json";
+import chessPhoto from "@/assets/journal/chess.jpg.asset.json";
+import cameraPhoto from "@/assets/journal/camera.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -89,6 +96,7 @@ function Index() {
       <Hero mode={mode} />
       <Projects />
       <LifeBento />
+      <StageBand />
       <Words />
       <Journal
         activeEntry={activeEntry}
@@ -292,14 +300,16 @@ function LifeBento() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[minmax(180px,auto)]">
         {/* The Spectator — large */}
         <FadeUp className="md:col-span-2 md:row-span-2">
-          <article className="relative h-full rounded-3xl overflow-hidden hairline bg-gradient-to-br from-[#131322] to-[#0b0b14] p-8 sm:p-10 flex flex-col justify-between min-h-[380px]">
+          <article className="relative h-full rounded-3xl overflow-hidden hairline bg-gradient-to-br from-[#131322] to-[#0b0b14] p-8 sm:p-10 flex flex-col justify-between min-h-[420px]">
+            <img
+              src={spectatorCover.url}
+              alt="The Spectator — novel cover"
+              className="absolute inset-0 h-full w-full object-cover opacity-60"
+              loading="lazy"
+            />
             <div
               aria-hidden
-              className="absolute inset-0 opacity-30 mix-blend-screen"
-              style={{
-                background:
-                  "radial-gradient(600px 300px at 80% 10%, rgba(0,102,255,0.35), transparent 60%)",
-              }}
+              className="absolute inset-0 bg-gradient-to-t from-[#0b0b14] via-[#0b0b14]/70 to-[#0b0b14]/20"
             />
             <div className="relative">
               <p className="text-[10px] uppercase tracking-[0.35em] text-muted-foreground mb-4">
@@ -322,17 +332,24 @@ function LifeBento() {
 
         {/* Dance winner */}
         <FadeUp delay={0.05}>
-          <article className="h-full rounded-3xl hairline p-6 bg-card/40 flex flex-col justify-between min-h-[180px]">
-            <div className="flex items-center justify-between">
+          <article className="relative h-full rounded-3xl hairline overflow-hidden bg-card/40 flex flex-col justify-between min-h-[180px]">
+            <img
+              src={danceMedal.url}
+              alt="Holding the 1st place medal"
+              className="absolute inset-0 h-full w-full object-cover opacity-55"
+              loading="lazy"
+            />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+            <div className="relative p-6 flex items-center justify-between">
               <span className="text-[10px] uppercase tracking-[0.3em] text-primary">
                 1st place
               </span>
               <span className="text-xl">🏆</span>
             </div>
-            <div>
+            <div className="relative p-6 pt-0">
               <h3 className="font-display text-2xl font-semibold">Dance</h3>
               <p className="text-xs text-muted-foreground mt-1">
-                Recent competition · champions
+                Champions — medal, ours.
               </p>
             </div>
           </article>
@@ -340,21 +357,16 @@ function LifeBento() {
 
         {/* Chess */}
         <FadeUp delay={0.1}>
-          <article className="h-full rounded-3xl hairline p-6 bg-card/40 min-h-[180px] flex flex-col justify-between">
-            <div className="grid grid-cols-4 gap-0.5 w-fit">
-              {Array.from({ length: 16 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={
-                    "h-4 w-4 " +
-                    ((Math.floor(i / 4) + i) % 2 === 0
-                      ? "bg-white/10"
-                      : "bg-white/30")
-                  }
-                />
-              ))}
-            </div>
-            <div>
+          <article className="relative h-full rounded-3xl hairline overflow-hidden bg-card/40 min-h-[180px] flex flex-col justify-between">
+            <img
+              src={chessPhoto.url}
+              alt="Match night — chess"
+              className="absolute inset-0 h-full w-full object-cover opacity-50"
+              loading="lazy"
+            />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+            <div className="relative p-6 flex-1" />
+            <div className="relative p-6 pt-0">
               <h3 className="font-display text-2xl font-semibold">Chess</h3>
               <p className="text-xs text-muted-foreground mt-1">
                 Endgames &gt; openings.
@@ -380,14 +392,18 @@ function LifeBento() {
 
         {/* Photography */}
         <FadeUp delay={0.2}>
-          <article className="h-full rounded-3xl hairline p-6 bg-card/40 min-h-[180px] flex flex-col justify-between">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full hairline grid place-items-center">
-                <span>◉</span>
-              </div>
+          <article className="relative h-full rounded-3xl hairline overflow-hidden bg-card/40 min-h-[180px] flex flex-col justify-between">
+            <img
+              src={cameraPhoto.url}
+              alt="Behind the viewfinder"
+              className="absolute inset-0 h-full w-full object-cover opacity-55"
+              loading="lazy"
+            />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+            <div className="relative p-6 flex items-center gap-3">
               <span className="text-xs text-muted-foreground">50mm · f/1.8</span>
             </div>
-            <div>
+            <div className="relative p-6 pt-0">
               <h3 className="font-display text-2xl font-semibold">Photography</h3>
               <p className="text-xs text-muted-foreground mt-1">
                 Learning to see slowly.
@@ -415,9 +431,14 @@ function LifeBento() {
 
         {/* Arts */}
         <FadeUp delay={0.3}>
-          <article className="h-full rounded-3xl hairline p-6 bg-card/40 min-h-[180px] flex flex-col justify-between">
-            <span className="font-editorial text-4xl">✎</span>
-            <div>
+          <article className="relative h-full rounded-3xl hairline overflow-hidden bg-card/40 min-h-[180px] flex flex-col justify-between">
+            <div className="absolute inset-0 grid grid-cols-2">
+              <img src={sketchPortrait.url} alt="Pencil portrait sketch" className="h-full w-full object-cover opacity-70" loading="lazy" />
+              <img src={sketchRose.url} alt="Pencil rose sketch" className="h-full w-full object-cover opacity-70" loading="lazy" />
+            </div>
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+            <div className="relative p-6 flex-1" />
+            <div className="relative p-6 pt-0">
               <h3 className="font-display text-2xl font-semibold">Sketches</h3>
               <p className="text-xs text-muted-foreground mt-1">
                 Pencil roses & quiet portraits.
@@ -589,6 +610,37 @@ function TactileDeck({
         ))}
       </div>
     </div>
+  );
+}
+
+function StageBand() {
+  return (
+    <section className="px-6 py-16 max-w-7xl mx-auto">
+      <FadeUp>
+        <figure className="relative rounded-3xl overflow-hidden hairline">
+          <img
+            src={danceStage.url}
+            alt="On stage, the night we won"
+            className="w-full h-[280px] sm:h-[420px] object-cover"
+            loading="lazy"
+          />
+          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+          <figcaption className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.35em] text-primary mb-2">
+                Stage · 2026
+              </p>
+              <h3 className="font-display text-2xl sm:text-4xl font-semibold max-w-xl">
+                The night the count hit and the crowd held its breath.
+              </h3>
+            </div>
+            <span className="hairline rounded-full px-3 py-1 text-xs text-muted-foreground w-fit">
+              live · first place
+            </span>
+          </figcaption>
+        </figure>
+      </FadeUp>
+    </section>
   );
 }
 
