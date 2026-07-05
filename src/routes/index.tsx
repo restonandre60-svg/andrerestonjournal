@@ -643,6 +643,8 @@ function StageBand() {
     </section>
   );
 }
+
+function Footer() {
   return (
     <footer className="px-6 pt-16 pb-32 max-w-7xl mx-auto">
       <div className="hairline rounded-3xl p-8 sm:p-12 bg-gradient-to-br from-card/60 to-transparent">
