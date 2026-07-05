@@ -96,6 +96,7 @@ function Index() {
       <Hero mode={mode} />
       <Projects />
       <LifeBento />
+      <StageBand />
       <Words />
       <Journal
         activeEntry={activeEntry}
