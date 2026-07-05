@@ -613,11 +613,36 @@ function TactileDeck({
   );
 }
 
-function Footer() {
-  return null as never;
+function StageBand() {
+  return (
+    <section className="px-6 py-16 max-w-7xl mx-auto">
+      <FadeUp>
+        <figure className="relative rounded-3xl overflow-hidden hairline">
+          <img
+            src={danceStage.url}
+            alt="On stage, the night we won"
+            className="w-full h-[280px] sm:h-[420px] object-cover"
+            loading="lazy"
+          />
+          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+          <figcaption className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.35em] text-primary mb-2">
+                Stage · 2026
+              </p>
+              <h3 className="font-display text-2xl sm:text-4xl font-semibold max-w-xl">
+                The night the count hit and the crowd held its breath.
+              </h3>
+            </div>
+            <span className="hairline rounded-full px-3 py-1 text-xs text-muted-foreground w-fit">
+              live · first place
+            </span>
+          </figcaption>
+        </figure>
+      </FadeUp>
+    </section>
+  );
 }
-
-// placeholder replaced below
   return (
     <footer className="px-6 pt-16 pb-32 max-w-7xl mx-auto">
       <div className="hairline rounded-3xl p-8 sm:p-12 bg-gradient-to-br from-card/60 to-transparent">
