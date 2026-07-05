@@ -2,6 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Lenis from "lenis";
+import spectatorCover from "@/assets/journal/spectator-cover.png.asset.json";
+import sketchPortrait from "@/assets/journal/sketch-portrait.jpg.asset.json";
+import sketchRose from "@/assets/journal/sketch-rose.jpg.asset.json";
+import danceMedal from "@/assets/journal/dance-medal.jpg.asset.json";
+import danceStage from "@/assets/journal/dance-stage.jpg.asset.json";
+import chessPhoto from "@/assets/journal/chess.jpg.asset.json";
+import cameraPhoto from "@/assets/journal/camera.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
