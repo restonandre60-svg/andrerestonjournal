@@ -2,26 +2,27 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Lenis from "lenis";
-import spectatorCover from "@/assets/journal/spectator-cover.png.asset.json";
-import sketchPortrait from "@/assets/journal/sketch-portrait.jpg.asset.json";
-import sketchRose from "@/assets/journal/sketch-rose.jpg.asset.json";
-import danceMedal from "@/assets/journal/dance-medal.jpg.asset.json";
-import danceStage from "@/assets/journal/dance-stage.jpg.asset.json";
-import chessPhoto from "@/assets/journal/chess.jpg.asset.json";
-import cameraPhoto from "@/assets/journal/camera.jpg.asset.json";
-import usherettePhoto from "@/assets/journal/usherette.jpg.asset.json";
-import raszmaYoutube from "@/assets/journal/raszma-youtube.jpg.asset.json";
-import gameValorant from "@/assets/journal/valorant-real.jpg.asset.json";
-import gameGenshin from "@/assets/journal/genshin-real.jpg.asset.json";
-import gameCrossfire from "@/assets/journal/crossfire-real.jpg.asset.json";
-import dreflowLogo from "@/assets/projects/dreflow-logo.png.asset.json";
-import dreflowPreview from "@/assets/projects/dreflow-preview.png.asset.json";
-import andioLogo from "@/assets/projects/andio-logo.png.asset.json";
-import andioPreview from "@/assets/projects/andio-preview.png.asset.json";
-import ancrestLogo from "@/assets/projects/ancrest-logo.png.asset.json";
-import ancrestPreview from "@/assets/projects/ancrest-preview.png.asset.json";
-import repodreLogo from "@/assets/projects/repodre-logo.png.asset.json";
-import repodrePreview from "@/assets/projects/repodre-preview.png.asset.json";
+import spectatorCover from "../assets/journal/spectator-cover.jpg";
+import sketchPortrait from "../assets/journal/sketch-portrait.jpg";
+import sketchRose from "../assets/journal/sketch-rose.jpg";
+import danceMedal from "../assets/journal/dance-medal.jpg";
+import danceStage from "../assets/journal/dance-stage.jpg";
+import chessPhoto from "../assets/journal/chess.jpg";
+import cameraPhoto from "../assets/journal/camera.jpg";
+import usherettePhoto from "../assets/journal/usherette.jpg";
+import raszmaYoutube from "../assets/journal/raszma-youtube.jpg";
+import gameValorant from "../assets/journal/valorant.jpg";
+import gameGenshin from "../assets/journal/genshin.jpg";
+import gameCrossfire from "../assets/journal/crossfire.jpg";
+import dreflowLogo from "../assets/projects/dreflow-logo.png";
+import dreflowPreview from "../assets/projects/dreflow-preview.png";
+import andioLogo from "../assets/projects/andio-logo.png";
+import andioPreview from "../assets/projects/andio-preview.png";
+import ancrestLogo from "../assets/projects/ancrest-logo.png";
+import ancrestPreview from "../assets/projects/ancrest-preview.png";
+import repodreLogo from "../assets/projects/repodre-logo.jpg";
+import repodrePreview from "../assets/projects/repodre-preview.png";
+import stageVideo from "../assets/journal/received_1576293670097276.mp4";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -33,8 +34,8 @@ const projects = [
     url: "https://dreflow.netlify.app",
     tag: "Flow · Focus",
     desc: "A dream-shaped workspace for uninterrupted thinking.",
-    logo: dreflowLogo.url,
-    preview: dreflowPreview.url,
+    logo: dreflowLogo,
+    preview: dreflowPreview,
     accent: "#F97316",
   },
   {
@@ -42,8 +43,8 @@ const projects = [
     url: "https://andio-sage.vercel.app",
     tag: "Audio · Ambient",
     desc: "A calm sonic companion for deep, slow hours.",
-    logo: andioLogo.url,
-    preview: andioPreview.url,
+    logo: andioLogo,
+    preview: andioPreview,
     accent: "#34D399",
   },
   {
@@ -51,8 +52,8 @@ const projects = [
     url: "https://ancrest.vercel.app",
     tag: "Rest · Reflect",
     desc: "A quiet resting place between the noise.",
-    logo: ancrestLogo.url,
-    preview: ancrestPreview.url,
+    logo: ancrestLogo,
+    preview: ancrestPreview,
     accent: "#22D3EE",
   },
   {
@@ -60,8 +61,8 @@ const projects = [
     url: "https://repodre.vercel.app",
     tag: "Repo · Ship",
     desc: "A developer surface for shipping the small things.",
-    logo: repodreLogo.url,
-    preview: repodrePreview.url,
+    logo: repodreLogo,
+    preview: repodrePreview,
     accent: "#2DD4BF",
   },
 ];
@@ -266,7 +267,7 @@ function Hero({ mode }: { mode: "code" | "creative" }) {
             Now
           </p>
           <p className="font-editorial italic text-2xl sm:text-3xl leading-[1.35]">
-            Writing chapter 07 of{" "}
+            Writing chapter 24 of{" "}
             <span className="not-italic bg-gradient-to-r from-[#0066FF] to-[#A78BFA] bg-clip-text text-transparent font-semibold">
               The Spectator
             </span>
@@ -275,7 +276,7 @@ function Hero({ mode }: { mode: "code" | "creative" }) {
           <div className="mt-10 grid grid-cols-3 gap-3 text-center">
             {[
               { k: "Ships", v: "04" },
-              { k: "Novel", v: "ch.07" },
+              { k: "Novel", v: "ch.24" },
               { k: "Medal", v: "1st" },
             ].map((s) => (
               <div key={s.k} className="hairline rounded-2xl py-3">
@@ -476,7 +477,7 @@ const bentoItems: BentoItem[] = [
     blurb: "a novel by Andre Reston — ch. 07 / drafting",
     detail:
       "Some truths are not meant to be seen — only carried, quietly, through the long streets of the city. He watched the lamp gutter. Some nights the sentence writes itself; most nights it does not.",
-    images: [spectatorCover.url],
+    images: [spectatorCover],
     span: "md:col-span-2 md:row-span-2",
     tall: true,
   },
@@ -487,7 +488,7 @@ const bentoItems: BentoItem[] = [
     blurb: "Champions — medal, ours.",
     detail:
       "Neon smoke, the stage lights breaking against our jackets. We hit the last count together and the crowd fell silent for a second — then everything erupted.",
-    images: [danceMedal.url, danceStage.url],
+    images: [danceMedal, danceStage],
     meta: [{ label: "Result", value: "🏆 1st Place" }],
   },
   {
@@ -497,7 +498,7 @@ const bentoItems: BentoItem[] = [
     blurb: "Endgames > openings.",
     detail:
       "I lose middlegames I should win, and win endgames I should lose. There is a poem hidden inside every tempo.",
-    images: [chessPhoto.url],
+    images: [chessPhoto],
   },
   {
     id: "video",
@@ -506,7 +507,7 @@ const bentoItems: BentoItem[] = [
     blurb: "RASZMA — anime MV & shorts editor.",
     detail:
       "I cut anime music videos and shorts under the handle RASZMA. It is where the timing brain from dance meets the frame-by-frame patience of writing.",
-    images: [raszmaYoutube.url],
+    images: [raszmaYoutube],
     meta: [
       { label: "Channel", value: "@rszma1" },
       { label: "Subs", value: "449+" },
@@ -530,7 +531,7 @@ const bentoItems: BentoItem[] = [
     blurb: "Learning to see slowly.",
     detail:
       "Mostly quiet frames — light through a window, someone mid-thought. Approach photography, then subtract until only the moment is left.",
-    images: [cameraPhoto.url],
+    images: [cameraPhoto],
   },
   {
     id: "games",
@@ -539,7 +540,7 @@ const bentoItems: BentoItem[] = [
     blurb: "Valorant · Genshin · CrossFire.",
     detail:
       "Tactical shooters for the reflex, Genshin for the world, CrossFire for the nostalgia. Three very different rooms of the same house.",
-    images: [gameValorant.url, gameGenshin.url, gameCrossfire.url],
+    images: [gameValorant, gameGenshin, gameCrossfire],
   },
   {
     id: "sketches",
@@ -548,7 +549,7 @@ const bentoItems: BentoItem[] = [
     blurb: "Pencil roses & quiet portraits.",
     detail:
       "Graphite on cheap paper. Portraits first, then roses when the hand needs to stop thinking.",
-    images: [sketchPortrait.url, sketchRose.url],
+    images: [sketchPortrait, sketchRose],
   },
   {
     id: "usherette",
@@ -557,7 +558,7 @@ const bentoItems: BentoItem[] = [
     blurb: "Holding the door for other people's nights.",
     detail:
       "Parade banners, umbrellas against the sun, and the small choreography of guiding people to their seats. A quiet way to belong to a night that isn't yours.",
-    images: [usherettePhoto.url],
+    images: [usherettePhoto],
   },
 ];
 
@@ -841,16 +842,57 @@ function TactileDeck({
 }
 
 function StageBand() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    if (!isPlaying || !videoRef.current) return;
+    videoRef.current.currentTime = 0;
+    videoRef.current.play().catch(() => {
+      /* autoplay may be blocked; users can click to play */
+    });
+  }, [isPlaying]);
+
   return (
     <section className="px-6 py-16 max-w-7xl mx-auto">
       <FadeUp>
         <figure className="relative rounded-3xl overflow-hidden hairline">
-          <img
-            src={danceStage.url}
-            alt="On stage, the night we won"
-            className="w-full h-[280px] sm:h-[420px] object-cover"
-            loading="lazy"
-          />
+          {isPlaying ? (
+            <video
+              ref={videoRef}
+              className="w-full h-[280px] sm:h-[420px] object-cover"
+              src={stageVideo}
+              controls
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+              poster={danceStage}
+              onClick={() => setIsPlaying(false)}
+            />
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsPlaying(true)}
+              className="group relative block w-full h-[280px] sm:h-[420px]"
+            >
+              <img
+                src={danceStage}
+                alt="On stage, the night we won"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/35 transition-opacity group-hover:opacity-90" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="inline-flex items-center justify-center rounded-full bg-white/90 text-black w-16 h-16 shadow-lg transition-transform group-hover:scale-105">
+                  ▶
+                </span>
+              </div>
+              <div className="absolute bottom-6 left-6 rounded-full bg-black/70 text-xs uppercase tracking-[0.35em] text-white px-3 py-2">
+                Tap to play
+              </div>
+            </button>
+          )}
           <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
           <figcaption className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <div>
