@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Lenis from "lenis";
 import spectatorCover from "@/assets/journal/spectator-cover.png.asset.json";
 import sketchPortrait from "@/assets/journal/sketch-portrait.jpg.asset.json";
