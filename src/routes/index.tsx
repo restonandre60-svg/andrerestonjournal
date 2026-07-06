@@ -11,9 +11,9 @@ import chessPhoto from "@/assets/journal/chess.jpg.asset.json";
 import cameraPhoto from "@/assets/journal/camera.jpg.asset.json";
 import usherettePhoto from "@/assets/journal/usherette.jpg.asset.json";
 import raszmaYoutube from "@/assets/journal/raszma-youtube.jpg.asset.json";
-import gameValorant from "@/assets/journal/game-valorant.jpg.asset.json";
-import gameGenshin from "@/assets/journal/game-genshin.jpg.asset.json";
-import gameCrossfire from "@/assets/journal/game-crossfire.jpg.asset.json";
+import gameValorant from "@/assets/journal/valorant-real.jpg.asset.json";
+import gameGenshin from "@/assets/journal/genshin-real.jpg.asset.json";
+import gameCrossfire from "@/assets/journal/crossfire-real.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
