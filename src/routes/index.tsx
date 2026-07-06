@@ -14,6 +14,14 @@ import raszmaYoutube from "@/assets/journal/raszma-youtube.jpg.asset.json";
 import gameValorant from "@/assets/journal/valorant-real.jpg.asset.json";
 import gameGenshin from "@/assets/journal/genshin-real.jpg.asset.json";
 import gameCrossfire from "@/assets/journal/crossfire-real.jpg.asset.json";
+import dreflowLogo from "@/assets/projects/dreflow-logo.png.asset.json";
+import dreflowPreview from "@/assets/projects/dreflow-preview.png.asset.json";
+import andioLogo from "@/assets/projects/andio-logo.png.asset.json";
+import andioPreview from "@/assets/projects/andio-preview.png.asset.json";
+import ancrestLogo from "@/assets/projects/ancrest-logo.png.asset.json";
+import ancrestPreview from "@/assets/projects/ancrest-preview.png.asset.json";
+import repodreLogo from "@/assets/projects/repodre-logo.png.asset.json";
+import repodrePreview from "@/assets/projects/repodre-preview.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -25,24 +33,36 @@ const projects = [
     url: "https://dreflow.netlify.app",
     tag: "Flow · Focus",
     desc: "A dream-shaped workspace for uninterrupted thinking.",
+    logo: dreflowLogo.url,
+    preview: dreflowPreview.url,
+    accent: "#F97316",
   },
   {
     name: "andio-sage",
     url: "https://andio-sage.vercel.app",
     tag: "Audio · Ambient",
     desc: "A calm sonic companion for deep, slow hours.",
+    logo: andioLogo.url,
+    preview: andioPreview.url,
+    accent: "#34D399",
   },
   {
     name: "ancrest",
     url: "https://ancrest.vercel.app",
     tag: "Rest · Reflect",
     desc: "A quiet resting place between the noise.",
+    logo: ancrestLogo.url,
+    preview: ancrestPreview.url,
+    accent: "#22D3EE",
   },
   {
     name: "repodre",
     url: "https://repodre.vercel.app",
     tag: "Repo · Ship",
     desc: "A developer surface for shipping the small things.",
+    logo: repodreLogo.url,
+    preview: repodrePreview.url,
+    accent: "#2DD4BF",
   },
 ];
 
