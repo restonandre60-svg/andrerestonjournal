@@ -145,10 +145,11 @@ function Navbar() {
 }
 
 function Hero({ mode }: { mode: "code" | "creative" }) {
+  const headline = ["Developer.", "Writer.", "Creator."];
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-24 overflow-hidden"
+      className="relative min-h-screen px-6 pt-32 pb-24 overflow-hidden"
     >
       {/* faint grid */}
       <div
@@ -162,61 +163,111 @@ function Hero({ mode }: { mode: "code" | "creative" }) {
             "radial-gradient(ellipse at center, black 40%, transparent 75%)",
         }}
       />
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-8"
-      >
-        Christian Andre C. Reston · Journal vol. I
-      </motion.p>
+      <div className="relative mx-auto max-w-7xl min-h-[calc(100vh-14rem)] grid grid-cols-1 lg:grid-cols-[6fr_4fr] gap-10 lg:gap-16 items-center">
+        {/* 60 — headline */}
+        <div>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-8"
+          >
+            Christian Andre C. Reston · Journal vol. I
+          </motion.p>
+          <h1 className="font-display font-semibold leading-[0.92] text-[clamp(2.75rem,9vw,6.5rem)]">
+            {headline.map((line, li) => (
+              <span key={li} className="block">
+                {line.split(" ").map((w, wi) => {
+                  const delay = li * 0.25 + wi * 0.08;
+                  const isCreator = w.startsWith("Creator");
+                  return (
+                    <motion.span
+                      key={wi}
+                      initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+                      className={
+                        "inline-block mr-[0.2em] " +
+                        (isCreator
+                          ? "bg-gradient-to-r from-[#0066FF] to-[#A78BFA] bg-clip-text text-transparent"
+                          : "")
+                      }
+                    >
+                      {w}
+                    </motion.span>
+                  );
+                })}
+              </span>
+            ))}
+          </h1>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.9 }}
+            className="mt-8 max-w-xl text-sm sm:text-base text-muted-foreground"
+          >
+            A living journal of shipped code, unfinished novels, quiet chess nights,
+            stage lights, and pencil roses. Currently reading the world in{" "}
+            <span className="text-foreground font-medium">
+              {mode === "code" ? "code" : "creative"}
+            </span>{" "}
+            mode.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            className="mt-10 flex flex-wrap gap-3"
+          >
+            <a
+              href="#projects"
+              className="px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:brightness-110 transition"
+            >
+              See the work
+            </a>
+            <a
+              href="#words"
+              className="px-5 py-2.5 rounded-full hairline text-sm font-medium hover:bg-white/5 transition"
+            >
+              Read the words
+            </a>
+          </motion.div>
+        </div>
 
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        className="font-display text-center font-semibold leading-[0.95] text-[clamp(2.5rem,10vw,6rem)]"
-      >
-        Developer.
-        <br />
-        Writer.
-        <br />
-        <span className="text-primary">Creator.</span>
-      </motion.h1>
-
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.2 }}
-        className="mt-8 max-w-xl text-center text-sm sm:text-base text-muted-foreground"
-      >
-        A living journal of shipped code, unfinished novels, quiet chess nights,
-        stage lights, and pencil roses. Currently reading the world in{" "}
-        <span className="text-foreground font-medium">
-          {mode === "code" ? "code" : "creative"}
-        </span>{" "}
-        mode.
-      </motion.p>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="mt-12 flex flex-wrap justify-center gap-3"
-      >
-        <a
-          href="#projects"
-          className="px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:brightness-110 transition"
+        {/* 40 — editorial card */}
+        <motion.aside
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="glass rounded-3xl p-8 sm:p-10 relative overflow-hidden"
         >
-          See the work
-        </a>
-        <a
-          href="#words"
-          className="px-5 py-2.5 rounded-full hairline text-sm font-medium hover:bg-white/5 transition"
-        >
-          Read the words
-        </a>
-      </motion.div>
+          <div aria-hidden className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-primary/25 blur-3xl" />
+          <p className="text-[10px] uppercase tracking-[0.35em] text-primary mb-6">
+            Now
+          </p>
+          <p className="font-editorial italic text-2xl sm:text-3xl leading-[1.35]">
+            Writing chapter 07 of{" "}
+            <span className="not-italic bg-gradient-to-r from-[#0066FF] to-[#A78BFA] bg-clip-text text-transparent font-semibold">
+              The Spectator
+            </span>
+            . Shipping small tools. Learning to hold the tempo.
+          </p>
+          <div className="mt-10 grid grid-cols-3 gap-3 text-center">
+            {[
+              { k: "Ships", v: "04" },
+              { k: "Novel", v: "ch.07" },
+              { k: "Medal", v: "1st" },
+            ].map((s) => (
+              <div key={s.k} className="hairline rounded-2xl py-3">
+                <div className="font-display text-xl font-semibold">{s.v}</div>
+                <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground mt-1">
+                  {s.k}
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.aside>
+      </div>
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/70">
         scroll ↓
