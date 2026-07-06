@@ -348,26 +348,42 @@ function Projects() {
               href={p.url}
               target="_blank"
               rel="noreferrer"
-              className="group relative shrink-0 w-[85vw] sm:w-[560px] h-[52vh] hairline rounded-3xl p-8 sm:p-10 bg-card/40 hover:bg-card/70 transition-all duration-300 hover:border-primary/40 flex flex-col justify-between overflow-hidden"
+              className="group relative shrink-0 w-[85vw] sm:w-[620px] h-[62vh] hairline rounded-3xl bg-card/40 hover:bg-card/70 transition-all duration-300 hover:border-primary/40 flex flex-col overflow-hidden"
             >
-              <div aria-hidden className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition" />
-              <div className="relative flex items-center justify-between">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                  {String(i + 1).padStart(2, "0")} · {p.tag}
-                </span>
-                <span className="text-muted-foreground group-hover:text-primary transition text-xl">
-                  ↗
-                </span>
+              <div
+                aria-hidden
+                className="absolute -top-24 -right-24 h-64 w-64 rounded-full blur-3xl opacity-0 group-hover:opacity-60 transition"
+                style={{ background: p.accent }}
+              />
+              <div className="relative flex-1 overflow-hidden bg-[#0a0a0a]">
+                <img
+                  src={p.preview}
+                  alt={`${p.name} landing page`}
+                  className="absolute inset-0 h-full w-full object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-500"
+                  loading="lazy"
+                />
+                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+                <div className="relative flex items-center justify-between p-6">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground glass px-3 py-1.5 rounded-full">
+                    {String(i + 1).padStart(2, "0")} · {p.tag}
+                  </span>
+                  <span className="text-white/80 group-hover:text-white transition text-xl">↗</span>
+                </div>
               </div>
-              <div className="relative">
-                <h3 className="font-display text-5xl sm:text-7xl font-semibold leading-[0.95]">
-                  {p.name}
-                </h3>
-                <p className="mt-6 font-editorial text-lg sm:text-xl text-muted-foreground max-w-md leading-relaxed">
-                  {p.desc}
-                </p>
-                <div className="mt-8 text-xs text-muted-foreground/70 truncate">
-                  {p.url.replace("https://", "")}
+              <div className="relative p-6 sm:p-8 flex items-center gap-5 border-t border-white/5">
+                <div className="shrink-0 h-16 w-16 rounded-2xl overflow-hidden hairline bg-[#0a0a0a] flex items-center justify-center">
+                  <img src={p.logo} alt={`${p.name} logo`} className="h-full w-full object-cover" loading="lazy" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-display text-3xl sm:text-4xl font-semibold leading-[0.95] truncate">
+                    {p.name}
+                  </h3>
+                  <p className="mt-2 font-editorial text-sm sm:text-base text-muted-foreground line-clamp-2 leading-snug">
+                    {p.desc}
+                  </p>
+                  <div className="mt-2 text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70 truncate">
+                    {p.url.replace("https://", "")}
+                  </div>
                 </div>
               </div>
             </a>
