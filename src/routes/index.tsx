@@ -893,8 +893,8 @@ function StageBand() {
               </div>
             </button>
           )}
-          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-          <figcaption className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent pointer-events-none" />
+          <figcaption className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 pointer-events-none">
             <div>
               <p className="text-[10px] uppercase tracking-[0.35em] text-primary mb-2">
                 Stage · 2026
