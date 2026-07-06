@@ -399,7 +399,10 @@ function LifeBento() {
                     "font-display font-semibold " +
                     (b.tall
                       ? "text-4xl sm:text-5xl leading-[1.02]"
-                      : "text-2xl")
+                      : "text-2xl") +
+                    (b.id === "spectator"
+                      ? " bg-gradient-to-r from-[#0066FF] to-[#A78BFA] bg-clip-text text-transparent"
+                      : "")
                   }
                 >
                   {b.title}
@@ -599,7 +602,12 @@ function BentoExpanded({ item, onClose }: { item: BentoItem | null; onClose: () 
               </p>
               <motion.h3
                 layoutId={`bento-title-${item.id}`}
-                className="font-display text-3xl sm:text-5xl font-semibold leading-[1.05]"
+                className={
+                  "font-display text-3xl sm:text-5xl font-semibold leading-[1.05]" +
+                  (item.id === "spectator"
+                    ? " bg-gradient-to-r from-[#0066FF] to-[#A78BFA] bg-clip-text text-transparent"
+                    : "")
+                }
               >
                 {item.title}
               </motion.h3>
