@@ -303,42 +303,56 @@ function SectionHeader({
 }
 
 function Projects() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
+  // 4 cards: translate from 0% to -75% so last card lands centered.
+  const x = useTransform(scrollYProgress, [0, 1], ["2%", "-78%"]);
+
   return (
-    <section id="projects" className="px-6 py-24 sm:py-32 max-w-7xl mx-auto">
-      <SectionHeader
-        eyebrow="Ship — 04"
-        title="Deployed, in the wild."
-        note="Four small products, each shipped end-to-end. Fewer things, more finish."
-      />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {projects.map((p, i) => (
-          <FadeUp key={p.name} delay={i * 0.08}>
+    <section id="projects" ref={ref} className="relative h-[380vh]">
+      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
+        <div className="px-6 max-w-7xl w-full mx-auto mb-10">
+          <SectionHeader
+            eyebrow="Ship — 04"
+            title="Deployed, in the wild."
+            note="Pinned scroll — four small products, each shipped end-to-end."
+          />
+        </div>
+        <motion.div style={{ x }} className="flex gap-6 pl-6 will-change-transform">
+          {projects.map((p, i) => (
             <a
+              key={p.name}
               href={p.url}
               target="_blank"
               rel="noreferrer"
-              className="group block h-full hairline rounded-2xl p-5 bg-card/40 hover:bg-card/70 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
+              className="group relative shrink-0 w-[85vw] sm:w-[560px] h-[52vh] hairline rounded-3xl p-8 sm:p-10 bg-card/40 hover:bg-card/70 transition-all duration-300 hover:border-primary/40 flex flex-col justify-between overflow-hidden"
             >
-              <div className="flex items-center justify-between mb-8">
-                <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-                  {p.tag}
+              <div aria-hidden className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition" />
+              <div className="relative flex items-center justify-between">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                  {String(i + 1).padStart(2, "0")} · {p.tag}
                 </span>
-                <span className="text-muted-foreground group-hover:text-primary transition">
+                <span className="text-muted-foreground group-hover:text-primary transition text-xl">
                   ↗
                 </span>
               </div>
-              <h3 className="font-display text-2xl font-semibold mb-2">
-                {p.name}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {p.desc}
-              </p>
-              <div className="mt-6 text-[11px] text-muted-foreground/70 truncate">
-                {p.url.replace("https://", "")}
+              <div className="relative">
+                <h3 className="font-display text-5xl sm:text-7xl font-semibold leading-[0.95]">
+                  {p.name}
+                </h3>
+                <p className="mt-6 font-editorial text-lg sm:text-xl text-muted-foreground max-w-md leading-relaxed">
+                  {p.desc}
+                </p>
+                <div className="mt-8 text-xs text-muted-foreground/70 truncate">
+                  {p.url.replace("https://", "")}
+                </div>
               </div>
             </a>
-          </FadeUp>
-        ))}
+          ))}
+        </motion.div>
       </div>
     </section>
   );
