@@ -135,6 +135,44 @@ function Index() {
   );
 }
 
+function MagneticNavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const strength = 0.25;
+    setOffset({
+      x: (e.clientX - centerX) * strength,
+      y: (e.clientY - centerY) * strength,
+    });
+  };
+
+  const handleMouseLeave = () => setOffset({ x: 0, y: 0 });
+
+  return (
+    <a
+      ref={ref}
+      href={href}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="px-3 py-1.5 rounded-full hover:text-foreground hover:bg-white/5 transition"
+      style={{ display: "inline-block" }}
+    >
+      <motion.span
+        animate={{ x: offset.x, y: offset.y }}
+        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+        className="inline-block"
+      >
+        {children}
+      </motion.span>
+    </a>
+  );
+}
+
 function Navbar() {
   return (
     <header className="fixed top-4 left-1/2 z-50 -translate-x-1/2 w-[min(94%,900px)]">
@@ -145,12 +183,7 @@ function Navbar() {
         <ul className="hidden sm:flex items-center gap-1 text-xs text-muted-foreground">
           {navItems.map((n) => (
             <li key={n.id}>
-              <a
-                href={`#${n.id}`}
-                className="px-3 py-1.5 rounded-full hover:text-foreground hover:bg-white/5 transition"
-              >
-                {n.label}
-              </a>
+              <MagneticNavLink href={`#${n.id}`}>{n.label}</MagneticNavLink>
             </li>
           ))}
         </ul>
