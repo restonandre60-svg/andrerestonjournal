@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import Lenis from "lenis";
+import SpectatorReader from "@/components/spectator-reader";
+import { draftingChapter } from "@/lib/spectator-chapters";
 import spectatorCover from "../assets/journal/spectator-cover.jpg";
 import sketchPortrait from "../assets/journal/sketch-portrait.jpg";
 import sketchRose from "../assets/journal/sketch-rose.jpg";
