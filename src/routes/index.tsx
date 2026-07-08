@@ -199,16 +199,43 @@ function Navbar() {
 }
 
 function Hero({ mode }: { mode: "code" | "creative" }) {
+  const heroRef = useRef<HTMLElement>(null);
+  const glowX = useMotionValue(0);
+  const glowY = useMotionValue(0);
+  const springX = useSpring(glowX, { stiffness: 50, damping: 20 });
+  const springY = useSpring(glowY, { stiffness: 50, damping: 20 });
+  const glowBackground = useTransform(
+    [springX, springY],
+    ([x, y]) =>
+      `radial-gradient(600px circle at ${x}px ${y}px, rgba(0,102,255,0.18), transparent 60%)`
+  );
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    glowX.set(e.clientX - rect.left);
+    glowY.set(e.clientY - rect.top);
+  };
+
   const headline = ["Developer.", "Writer.", "Creator."];
+
   return (
     <section
       id="hero"
+      ref={heroRef}
+      onMouseMove={handleMouseMove}
       className="relative min-h-screen px-6 pt-32 pb-24 overflow-hidden"
     >
+      {/* mouse-following glow */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0 opacity-40"
+        style={{ background: glowBackground }}
+      />
       {/* faint grid */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        className="pointer-events-none absolute inset-0 opacity-[0.06] z-[1]"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
@@ -217,7 +244,7 @@ function Hero({ mode }: { mode: "code" | "creative" }) {
             "radial-gradient(ellipse at center, black 40%, transparent 75%)",
         }}
       />
-      <div className="relative mx-auto max-w-7xl min-h-[calc(100vh-14rem)] grid grid-cols-1 lg:grid-cols-[6fr_4fr] gap-10 lg:gap-16 items-center">
+      <div className="relative z-10 mx-auto max-w-7xl min-h-[calc(100vh-14rem)] grid grid-cols-1 lg:grid-cols-[6fr_4fr] gap-10 lg:gap-16 items-center">
         {/* 60 — headline */}
         <div>
           <motion.p
@@ -229,35 +256,34 @@ function Hero({ mode }: { mode: "code" | "creative" }) {
             Christian Andre C. Reston · Journal vol. I
           </motion.p>
           <h1 className="font-display font-semibold leading-[0.92] text-[clamp(2.75rem,9vw,6.5rem)]">
-            {headline.map((line, li) => (
-              <span key={li} className="block">
-                {line.split(" ").map((w, wi) => {
-                  const delay = li * 0.25 + wi * 0.08;
-                  const isCreator = w.startsWith("Creator");
-                  return (
-                    <motion.span
-                      key={wi}
-                      initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-                      className={
-                        "inline-block mr-[0.2em] " +
-                        (isCreator
-                          ? "bg-gradient-to-r from-[#0066FF] to-[#A78BFA] bg-clip-text text-transparent"
-                          : "")
-                      }
-                    >
-                      {w}
-                    </motion.span>
-                  );
-                })}
-              </span>
-            ))}
+            {headline.map((line, li) => {
+              const isCreator = line.startsWith("Creator");
+              return (
+                <motion.span
+                  key={li}
+                  className={
+                    "block " +
+                    (isCreator
+                      ? "bg-gradient-to-r from-[#0066FF] to-[#A78BFA] bg-clip-text text-transparent"
+                      : "")
+                  }
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: li * 0.15,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  {line}
+                </motion.span>
+              );
+            })}
           </h1>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.9 }}
+            transition={{ duration: 0.9, delay: 0.6 }}
             className="mt-8 max-w-xl text-sm sm:text-base text-muted-foreground"
           >
             A living journal of shipped code, unfinished novels, quiet chess nights,
@@ -270,18 +296,18 @@ function Hero({ mode }: { mode: "code" | "creative" }) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
+            transition={{ delay: 0.9 }}
             className="mt-10 flex flex-wrap gap-3"
           >
             <a
               href="#projects"
-              className="px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:brightness-110 transition"
+              className="px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:bg-blue-600 active:scale-95 transition"
             >
               See the work
             </a>
             <a
               href="#words"
-              className="px-5 py-2.5 rounded-full hairline text-sm font-medium hover:bg-white/5 transition"
+              className="px-5 py-2.5 rounded-full hairline text-sm font-medium hover:bg-blue-600 hover:text-primary-foreground active:scale-95 transition"
             >
               Read the words
             </a>
