@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import Lenis from "lenis";
 import spectatorCover from "../assets/journal/spectator-cover.jpg";
 import sketchPortrait from "../assets/journal/sketch-portrait.jpg";
@@ -135,6 +135,44 @@ function Index() {
   );
 }
 
+function MagneticNavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const strength = 0.25;
+    setOffset({
+      x: (e.clientX - centerX) * strength,
+      y: (e.clientY - centerY) * strength,
+    });
+  };
+
+  const handleMouseLeave = () => setOffset({ x: 0, y: 0 });
+
+  return (
+    <a
+      ref={ref}
+      href={href}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="px-3 py-1.5 rounded-full hover:text-foreground hover:bg-white/5 transition"
+      style={{ display: "inline-block" }}
+    >
+      <motion.span
+        animate={{ x: offset.x, y: offset.y }}
+        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+        className="inline-block"
+      >
+        {children}
+      </motion.span>
+    </a>
+  );
+}
+
 function Navbar() {
   return (
     <header className="fixed top-4 left-1/2 z-50 -translate-x-1/2 w-[min(94%,900px)]">
@@ -145,12 +183,7 @@ function Navbar() {
         <ul className="hidden sm:flex items-center gap-1 text-xs text-muted-foreground">
           {navItems.map((n) => (
             <li key={n.id}>
-              <a
-                href={`#${n.id}`}
-                className="px-3 py-1.5 rounded-full hover:text-foreground hover:bg-white/5 transition"
-              >
-                {n.label}
-              </a>
+              <MagneticNavLink href={`#${n.id}`}>{n.label}</MagneticNavLink>
             </li>
           ))}
         </ul>
@@ -166,16 +199,43 @@ function Navbar() {
 }
 
 function Hero({ mode }: { mode: "code" | "creative" }) {
+  const heroRef = useRef<HTMLElement>(null);
+  const glowX = useMotionValue(0);
+  const glowY = useMotionValue(0);
+  const springX = useSpring(glowX, { stiffness: 50, damping: 20 });
+  const springY = useSpring(glowY, { stiffness: 50, damping: 20 });
+  const glowBackground = useTransform(
+    [springX, springY],
+    ([x, y]) =>
+      `radial-gradient(600px circle at ${x}px ${y}px, rgba(0,102,255,0.18), transparent 60%)`
+  );
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    glowX.set(e.clientX - rect.left);
+    glowY.set(e.clientY - rect.top);
+  };
+
   const headline = ["Developer.", "Writer.", "Creator."];
+
   return (
     <section
       id="hero"
+      ref={heroRef}
+      onMouseMove={handleMouseMove}
       className="relative min-h-screen px-6 pt-32 pb-24 overflow-hidden"
     >
+      {/* mouse-following glow */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0 opacity-40"
+        style={{ background: glowBackground }}
+      />
       {/* faint grid */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        className="pointer-events-none absolute inset-0 opacity-[0.06] z-[1]"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
@@ -184,7 +244,7 @@ function Hero({ mode }: { mode: "code" | "creative" }) {
             "radial-gradient(ellipse at center, black 40%, transparent 75%)",
         }}
       />
-      <div className="relative mx-auto max-w-7xl min-h-[calc(100vh-14rem)] grid grid-cols-1 lg:grid-cols-[6fr_4fr] gap-10 lg:gap-16 items-center">
+      <div className="relative z-10 mx-auto max-w-7xl min-h-[calc(100vh-14rem)] grid grid-cols-1 lg:grid-cols-[6fr_4fr] gap-10 lg:gap-16 items-center">
         {/* 60 — headline */}
         <div>
           <motion.p
@@ -196,35 +256,34 @@ function Hero({ mode }: { mode: "code" | "creative" }) {
             Christian Andre C. Reston · Journal vol. I
           </motion.p>
           <h1 className="font-display font-semibold leading-[0.92] text-[clamp(2.75rem,9vw,6.5rem)]">
-            {headline.map((line, li) => (
-              <span key={li} className="block">
-                {line.split(" ").map((w, wi) => {
-                  const delay = li * 0.25 + wi * 0.08;
-                  const isCreator = w.startsWith("Creator");
-                  return (
-                    <motion.span
-                      key={wi}
-                      initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-                      className={
-                        "inline-block mr-[0.2em] " +
-                        (isCreator
-                          ? "bg-gradient-to-r from-[#0066FF] to-[#A78BFA] bg-clip-text text-transparent"
-                          : "")
-                      }
-                    >
-                      {w}
-                    </motion.span>
-                  );
-                })}
-              </span>
-            ))}
+            {headline.map((line, li) => {
+              const isCreator = line.startsWith("Creator");
+              return (
+                <motion.span
+                  key={li}
+                  className={
+                    "block " +
+                    (isCreator
+                      ? "bg-gradient-to-r from-[#0066FF] to-[#A78BFA] bg-clip-text text-transparent"
+                      : "")
+                  }
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: li * 0.15,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  {line}
+                </motion.span>
+              );
+            })}
           </h1>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.9 }}
+            transition={{ duration: 0.9, delay: 0.6 }}
             className="mt-8 max-w-xl text-sm sm:text-base text-muted-foreground"
           >
             A living journal of shipped code, unfinished novels, quiet chess nights,
@@ -237,18 +296,18 @@ function Hero({ mode }: { mode: "code" | "creative" }) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
+            transition={{ delay: 0.9 }}
             className="mt-10 flex flex-wrap gap-3"
           >
             <a
               href="#projects"
-              className="px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:brightness-110 transition"
+              className="px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:bg-blue-600 active:scale-95 transition"
             >
               See the work
             </a>
             <a
               href="#words"
-              className="px-5 py-2.5 rounded-full hairline text-sm font-medium hover:bg-white/5 transition"
+              className="px-5 py-2.5 rounded-full hairline text-sm font-medium hover:bg-blue-600 hover:text-primary-foreground active:scale-95 transition"
             >
               Read the words
             </a>
