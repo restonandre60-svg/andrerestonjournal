@@ -409,14 +409,15 @@ function LifeBento() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[minmax(180px,auto)]">
         {bentoItems.map((b, i) => (
-          <FadeUp key={b.id} delay={i * 0.04} className={b.span ?? ""}>
+          <FadeUp key={b.id} delay={i * 0.1} className={b.span ?? ""}>
             <motion.button
               layoutId={`bento-${b.id}`}
               onClick={() => setOpenId(b.id)}
               className={
-                "group relative w-full h-full text-left rounded-3xl hairline overflow-hidden bg-card/40 flex flex-col justify-between " +
+                "group relative w-full h-full text-left rounded-3xl hairline overflow-hidden bg-card/60 backdrop-blur-sm flex flex-col justify-between " +
                 (b.tall ? "min-h-[420px]" : "min-h-[180px]") +
-                " hover:-translate-y-0.5 hover:border-primary/40 transition-all duration-300 cursor-pointer"
+                " transition-all duration-300 ease-out cursor-pointer " +
+                "hover:-translate-y-1 hover:scale-105 hover:border-primary/40 hover:ring-1 hover:ring-primary/30 hover:shadow-lg hover:shadow-primary/10"
               }
             >
               <BentoBackground item={b} />
