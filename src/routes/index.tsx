@@ -458,6 +458,7 @@ function Projects() {
 
 function LifeBento() {
   const [openId, setOpenId] = useState<string | null>(null);
+  const [readerOpen, setReaderOpen] = useState(false);
   const open = openId ? bentoItems.find((b) => b.id === openId) ?? null : null;
 
   return (
@@ -471,50 +472,115 @@ function LifeBento() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[minmax(180px,auto)]">
         {bentoItems.map((b, i) => (
           <FadeUp key={b.id} delay={i * 0.1} className={b.span ?? ""}>
-            <motion.button
-              layoutId={`bento-${b.id}`}
-              onClick={() => setOpenId(b.id)}
-              className={
-                "group relative w-full h-full text-left rounded-3xl hairline overflow-hidden bg-card/60 backdrop-blur-sm flex flex-col justify-between " +
-                (b.tall ? "min-h-[420px]" : "min-h-[180px]") +
-                " transition-all duration-300 ease-out cursor-pointer " +
-                "hover:-translate-y-1 hover:scale-105 hover:border-primary/40 hover:ring-1 hover:ring-primary/30 hover:shadow-lg hover:shadow-primary/10"
-              }
-            >
-              <BentoBackground item={b} />
-              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-              <div className="relative p-6 flex items-start justify-between">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-primary">
-                  {b.tag}
-                </span>
-                <span className="text-muted-foreground/80 text-xs opacity-0 group-hover:opacity-100 transition">
-                  expand ↗
-                </span>
-              </div>
-              <div className="relative p-6 pt-0">
-                <motion.h3
-                  layoutId={`bento-title-${b.id}`}
-                  className={
-                    "font-display font-semibold " +
-                    (b.tall
-                      ? "text-4xl sm:text-5xl leading-[1.02]"
-                      : "text-2xl") +
-                    (b.id === "spectator"
-                      ? " bg-gradient-to-r from-[#0066FF] to-[#A78BFA] bg-clip-text text-transparent"
-                      : "")
-                  }
-                >
-                  {b.title}
-                </motion.h3>
-                <p className="text-xs text-muted-foreground mt-1">{b.blurb}</p>
-              </div>
-            </motion.button>
+            {b.id === "spectator" ? (
+              <SpectatorBentoCard
+                item={b}
+                onOpenReader={() => setReaderOpen(true)}
+              />
+            ) : (
+              <motion.button
+                layoutId={`bento-${b.id}`}
+                onClick={() => setOpenId(b.id)}
+                className={
+                  "group relative w-full h-full text-left rounded-3xl hairline overflow-hidden bg-card/60 backdrop-blur-sm flex flex-col justify-between " +
+                  (b.tall ? "min-h-[420px]" : "min-h-[180px]") +
+                  " transition-all duration-300 ease-out cursor-pointer " +
+                  "hover:-translate-y-1 hover:scale-105 hover:border-primary/40 hover:ring-1 hover:ring-primary/30 hover:shadow-lg hover:shadow-primary/10"
+                }
+              >
+                <BentoBackground item={b} />
+                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+                <div className="relative p-6 flex items-start justify-between">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-primary">
+                    {b.tag}
+                  </span>
+                  <span className="text-muted-foreground/80 text-xs opacity-0 group-hover:opacity-100 transition">
+                    expand ↗
+                  </span>
+                </div>
+                <div className="relative p-6 pt-0">
+                  <motion.h3
+                    layoutId={`bento-title-${b.id}`}
+                    className={
+                      "font-display font-semibold " +
+                      (b.tall
+                        ? "text-4xl sm:text-5xl leading-[1.02]"
+                        : "text-2xl")
+                    }
+                  >
+                    {b.title}
+                  </motion.h3>
+                  <p className="text-xs text-muted-foreground mt-1">{b.blurb}</p>
+                </div>
+              </motion.button>
+            )}
           </FadeUp>
         ))}
       </div>
 
       <BentoExpanded item={open} onClose={() => setOpenId(null)} />
+      <SpectatorReader
+        open={readerOpen}
+        onClose={() => setReaderOpen(false)}
+        initialChapterId={draftingChapter.id}
+      />
     </section>
+  );
+}
+
+function SpectatorBentoCard({
+  item,
+  onOpenReader,
+}: {
+  item: BentoItem;
+  onOpenReader: () => void;
+}) {
+  return (
+    <div
+      className={
+        "group relative w-full h-full rounded-3xl hairline overflow-hidden bg-card/60 backdrop-blur-sm flex flex-col justify-between min-h-[420px] " +
+        "transition-all duration-300 ease-out " +
+        "hover:-translate-y-1 hover:scale-[1.02] hover:border-primary/40 hover:ring-1 hover:ring-primary/30 hover:shadow-lg hover:shadow-primary/10"
+      }
+    >
+      <BentoBackground item={item} />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/20"
+      />
+
+      {/* Top row: status tag + read time badge */}
+      <div className="relative p-6 flex items-start justify-between gap-3">
+        <span className="text-[10px] uppercase tracking-[0.3em] text-primary">
+          {item.tag}
+        </span>
+        <div className="flex items-center gap-2">
+          <span className="glass rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-foreground/80">
+            Ch. {draftingChapter.number} · {draftingChapter.status}
+          </span>
+          <span className="glass rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-foreground/80">
+            {draftingChapter.minutes} min read
+          </span>
+        </div>
+      </div>
+
+      {/* Bottom: title + CTA */}
+      <div className="relative p-6 pt-0">
+        <h3 className="font-display font-semibold text-4xl sm:text-5xl leading-[1.02] bg-gradient-to-r from-[#0066FF] to-[#A78BFA] bg-clip-text text-transparent">
+          {item.title}
+        </h3>
+        <p className="text-xs text-muted-foreground mt-2 max-w-md">
+          A novel by Andre Reston — an ongoing chronicle. Latest draft below.
+        </p>
+        <button
+          onClick={onOpenReader}
+          className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:bg-blue-600 active:scale-95 transition"
+        >
+          Read Chapter {draftingChapter.number}
+          <span aria-hidden>→</span>
+        </button>
+      </div>
+    </div>
   );
 }
 
