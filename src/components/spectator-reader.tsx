@@ -297,7 +297,7 @@ export function SpectatorReader({ open, onClose, initialChapterId }: Props) {
       if (suppressScrollSave.current) return;
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        writeLS<LastRead>(LS_LAST, { chapterId, scrollTop: el.scrollTop });
+        writeLS(LS_LAST, { chapterId, scrollTop: el.scrollTop } satisfies LastRead);
       });
     };
     el.addEventListener("scroll", onScroll, { passive: true });
