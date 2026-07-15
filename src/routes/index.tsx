@@ -519,11 +519,7 @@ function LifeBento() {
       </div>
 
       <BentoExpanded item={open} onClose={() => setOpenId(null)} />
-      <SpectatorReader
-        open={readerOpen}
-        onClose={() => setReaderOpen(false)}
-        initialChapterId={draftingChapter.id}
-      />
+      <SpectatorReader open={readerOpen} onClose={() => setReaderOpen(false)} />
     </section>
   );
 }
