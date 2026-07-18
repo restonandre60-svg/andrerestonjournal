@@ -674,7 +674,7 @@ const bentoItems: BentoItem[] = [
     blurb: "Pencil roses & quiet portraits.",
     detail:
       "Graphite on cheap paper. Portraits first, then roses when the hand needs to stop thinking.",
-    images: [sketchPortrait, sketchRose],
+    images: [sketchGlasses, sketchPortrait, sketchRose],
   },
   {
     id: "usherette",
