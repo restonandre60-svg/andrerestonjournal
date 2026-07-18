@@ -264,9 +264,12 @@ export function SpectatorReader({ open, onClose, initialChapterId }: Props) {
     scrollRef.current = node;
     setScrollEl(node);
   }, []);
-  const containerRef = useMemo(() => ({ current: scrollEl }), [scrollEl]);
+  const containerRef = useMemo(
+    () => ({ current: scrollEl }) as { current: HTMLDivElement | null },
+    [scrollEl],
+  );
   const { scrollYProgress } = useScroll(
-    scrollEl ? { container: containerRef as React.RefObject<HTMLDivElement> } : {},
+    scrollEl ? { container: containerRef } : {},
   );
   const progress = useSpring(scrollYProgress, {
     stiffness: 120,
