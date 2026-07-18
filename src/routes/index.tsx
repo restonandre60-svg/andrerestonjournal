@@ -572,7 +572,7 @@ function SpectatorBentoCard({
           onClick={onOpenReader}
           className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:bg-blue-600 active:scale-95 transition"
         >
-          Read Chapter {draftingChapter.number}
+          Read Chapter 1
           <span aria-hidden>→</span>
         </button>
       </div>
