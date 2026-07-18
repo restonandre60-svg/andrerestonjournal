@@ -211,6 +211,20 @@ export function SpectatorReader({ open, onClose, initialChapterId }: Props) {
 
   const chapter: Chapter =
     chapters.find((c) => c.id === chapterId) ?? chapters[0];
+  const chapterIndex = chapters.findIndex((c) => c.id === chapter.id);
+  const prevChapter = chapterIndex > 0 ? chapters[chapterIndex - 1] : null;
+  const nextChapter =
+    chapterIndex >= 0 && chapterIndex < chapters.length - 1
+      ? chapters[chapterIndex + 1]
+      : null;
+  const goToChapter = useCallback(
+    (id: string) => {
+      setChapterId(id);
+      const el = scrollRef.current;
+      if (el) el.scrollTo({ top: 0, behavior: "auto" });
+    },
+    [],
+  );
 
   // User-authored margin notes per chapter
   const [userNotes, setUserNotes] = useState<UserNote[]>([]);
@@ -996,6 +1010,62 @@ export function SpectatorReader({ open, onClose, initialChapterId }: Props) {
                     ? "This chapter is still being written. Come back — it will change."
                     : "Thanks for reading. — Andre"}
                 </p>
+
+                {/* Prev / Next chapter navigation */}
+                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {prevChapter ? (
+                    <button
+                      onClick={() => goToChapter(prevChapter.id)}
+                      className="group text-left rounded-2xl p-4 transition active:scale-[0.98] hover:-translate-y-0.5"
+                      style={{
+                        background: palette.surface,
+                        border: `1px solid ${palette.border}`,
+                      }}
+                    >
+                      <span
+                        className="block text-[10px] uppercase tracking-[0.3em]"
+                        style={{ color: palette.muted }}
+                      >
+                        ← Previous
+                      </span>
+                      <span
+                        className="block font-editorial italic text-base mt-1"
+                        style={{ color: palette.text }}
+                      >
+                        Ch. {prevChapter.number} · {prevChapter.title}
+                      </span>
+                    </button>
+                  ) : (
+                    <div />
+                  )}
+                  {nextChapter ? (
+                    <button
+                      onClick={() => goToChapter(nextChapter.id)}
+                      className="group text-right rounded-2xl p-4 transition active:scale-[0.98] hover:-translate-y-0.5 sm:col-start-2"
+                      style={{
+                        background: palette.surface,
+                        border: `1px solid ${palette.border}`,
+                      }}
+                    >
+                      <span
+                        className="block text-[10px] uppercase tracking-[0.3em]"
+                        style={{ color: palette.accent }}
+                      >
+                        Next →
+                      </span>
+                      <span
+                        className="block font-editorial italic text-base mt-1"
+                        style={{ color: palette.text }}
+                      >
+                        Ch. {nextChapter.number} · {nextChapter.title}
+                      </span>
+                    </button>
+                  ) : (
+                    <div className="sm:col-start-2 text-right text-xs" style={{ color: palette.muted }}>
+                      You're at the latest chapter.
+                    </div>
+                  )}
+                </div>
               </div>
             </article>
           </motion.div>
