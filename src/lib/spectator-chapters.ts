@@ -303,7 +303,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-11", number: 11, title: "The Whisperer", minutes: 4, status: "Drafting",
+    id: "ch-11", number: 11, title: "The Whisperer", minutes: 4, status: "Editing",
     paragraphs: [
       "The sun was already beginning to sink when Cyrus arrived at the edge of the yellow forest.",
       "The sky burned in orange and deep gold, stretching long shadows across the trees as if the world itself was being pulled thin at the edges. He stepped down from the carriage. The forest was quieter than he had expected—no birds, no wind, only the dry crunch of leaves beneath his boots.",
@@ -375,7 +375,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-12", number: 12, title: "The First Whisper", minutes: 4, status: "Drafting",
+    id: "ch-12", number: 12, title: "The First Whisper", minutes: 4, status: "Editing",
     paragraphs: [
       "Cyrus remained motionless before the carved wall.",
       "The cold metal at the back of his head hadn't moved. The bodyguard stood behind him in absolute stillness, revolver held without any tremor Cyrus could hear. The cave was quiet in the way that only a place containing a fresh corpse can be—a particular, weighted silence, threaded through with the smell of blood and stone.",
@@ -451,7 +451,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-13", number: 13, title: "The Weight of Flesh", minutes: 4, status: "Drafting",
+    id: "ch-13", number: 13, title: "The Weight of Flesh", minutes: 4, status: "Editing",
     paragraphs: [
       "The cave was silent.",
       "Only the torch remained alive—its flame guttering against the stone, throwing light across the carved wall, across Bruce's body, across the blood that had begun to dry into something darker and permanent on the cave floor.",
@@ -507,7 +507,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-14", number: 14, title: "The Weight of a Trigger", minutes: 4, status: "Drafting",
+    id: "ch-14", number: 14, title: "The Weight of a Trigger", minutes: 4, status: "Editing",
     paragraphs: [
       "May found her voice eventually.",
       "\"You killed him.\"",
@@ -553,7 +553,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-15", number: 15, title: "Fracture", minutes: 4, status: "Drafting",
+    id: "ch-15", number: 15, title: "Fracture", minutes: 4, status: "Editing",
     paragraphs: [
       "The morning Cassandra made breakfast and he couldn't eat it was the morning he understood that something in him had physically changed.",
       "It wasn't grief refusing the food. Grief he could have named and managed. This was different—a wrongness rooted somewhere below the stomach, below reason, in the part of the body that operates on older instructions than the mind. The smell of warm food triggered something involuntary, a recoil that came before the thought arrived, and by the time he understood what was happening he had already pushed back from the table.",
@@ -578,7 +578,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-16", number: 16, title: "Whispers", minutes: 4, status: "Drafting",
+    id: "ch-16", number: 16, title: "Whispers", minutes: 4, status: "Editing",
     paragraphs: [
       "The walk to work was the first time Cyrus understood that the whisper in his room hadn't been a fluke.",
       "It began within a block of his house—a conversation between two women on the opposite side of the street, conducted at the normal low volume of people not intending to be overheard. He caught every word. Not approximately. Every word, cleanly, as though they were standing beside him.",
@@ -631,7 +631,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-17", number: 17, title: "Judgement", minutes: 5, status: "Drafting",
+    id: "ch-17", number: 17, title: "Judgement", minutes: 5, status: "Editing",
     paragraphs: [
       "Evening arrived by the time Cyrus reached home. The orange light that came with it flattened the shadows and made the street look like a painting of itself.",
       "Cassandra was at the table when he came in. She looked up immediately—watchful in the way she'd been watchful since he came back. A new habit. He noticed it and said nothing about it.",
@@ -697,7 +697,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-18", number: 18, title: "Awaiting", minutes: 7, status: "Drafting",
+    id: "ch-18", number: 18, title: "Awaiting", minutes: 7, status: "Editing",
     paragraphs: [
       "The house did not feel like a house that night.",
       "It felt like a room inside a held breath.",
@@ -795,7 +795,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-19", number: 19, title: "Invisible Hands", minutes: 7, status: "Drafting",
+    id: "ch-19", number: 19, title: "Invisible Hands", minutes: 7, status: "Editing",
     paragraphs: [
       "The bench was still warm from the morning sun.",
       "Cyrus sat on it and looked at the street and waited.",
@@ -881,7 +881,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-20", number: 20, title: "The Threshold", minutes: 6, status: "Drafting",
+    id: "ch-20", number: 20, title: "The Threshold", minutes: 6, status: "Editing",
     paragraphs: [
       "The morning sun struck the flat-painted black walls of the company building, yet Cyrus felt no warmth from it.",
       "The light only made the structure look harsher.",
@@ -1070,7 +1070,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-21", number: 21, title: "Residual Noise", minutes: 12, status: "Drafting",
+    id: "ch-21", number: 21, title: "Residual Noise", minutes: 12, status: "Editing",
     paragraphs: [
       "The staircase took longer than it should have.",
       "Not physically. His legs descended at the same pace they always had, one step at a time, hand along the same railing. But the distance between Howard's office and the floor below had acquired a quality it hadn't possessed before — a sense of threshold, of crossing from one atmosphere into another, the way a room changes when a window is opened and the outside suddenly becomes present.",
@@ -1224,7 +1224,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-22", number: 22, title: "The Offer", minutes: 10, status: "Drafting",
+    id: "ch-22", number: 22, title: "The Offer", minutes: 10, status: "Editing",
     paragraphs: [
       "The café smelled faintly of sugar and alcohol.",
       "May didn't notice anymore. She had stopped noticing around the third week — the point at which the smell had stopped being the smell of the café and simply become the smell of the air, the ambient condition of the hours between closing and leaving, the atmosphere she moved through while her hands did what they were supposed to do and her mind went wherever it went when she wasn't supervising it.",
@@ -1341,7 +1341,7 @@ export const chapters: Chapter[] = [
     ],
   },
   {
-    id: "ch-23", number: 23, title: "Trespass", minutes: 13, status: "Drafting",
+    id: "ch-23", number: 23, title: "Trespass", minutes: 13, status: "Editing",
     paragraphs: [
       "He had not slept.",
       "This was not new. Sleep had become a negotiation since the cave — something he could approximate for a few hours if conditions were favorable, if Cassandra was close enough, if the house had settled into its quiet and the street outside had gone to its own late register. He had learned to accept the fragments and call them sufficient.",
