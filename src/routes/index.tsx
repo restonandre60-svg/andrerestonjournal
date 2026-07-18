@@ -7,6 +7,7 @@ import { draftingChapter } from "@/lib/spectator-chapters";
 import spectatorCover from "../assets/journal/spectator-cover.jpg";
 import sketchPortrait from "../assets/journal/sketch-portrait.jpg";
 import sketchRose from "../assets/journal/sketch-rose.jpg";
+import sketchGlasses from "../assets/journal/sketch-glasses.jpg";
 import danceMedal from "../assets/journal/dance-medal.jpg";
 import danceStage from "../assets/journal/dance-stage.jpg";
 import chessPhoto from "../assets/journal/chess.jpg";
