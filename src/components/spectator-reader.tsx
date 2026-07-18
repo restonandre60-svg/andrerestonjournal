@@ -259,7 +259,18 @@ export function SpectatorReader({ open, onClose, initialChapterId }: Props) {
   const [draft, setDraft] = useState({ label: "", body: "", kind: "creative" as MarginNote["kind"] });
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({ container: scrollRef });
+  const [scrollEl, setScrollEl] = useState<HTMLDivElement | null>(null);
+  const setScrollRef = useCallback((node: HTMLDivElement | null) => {
+    scrollRef.current = node;
+    setScrollEl(node);
+  }, []);
+  const containerRef = useMemo(
+    () => ({ current: scrollEl }) as { current: HTMLDivElement | null },
+    [scrollEl],
+  );
+  const { scrollYProgress } = useScroll(
+    scrollEl ? { container: containerRef } : {},
+  );
   const progress = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 24,
@@ -674,7 +685,7 @@ export function SpectatorReader({ open, onClose, initialChapterId }: Props) {
 
           {/* Scroll surface */}
           <motion.div
-            ref={scrollRef}
+            ref={setScrollRef}
             className="relative h-full w-full overflow-y-auto"
             initial={{ y: 24 }}
             animate={{ y: 0 }}
