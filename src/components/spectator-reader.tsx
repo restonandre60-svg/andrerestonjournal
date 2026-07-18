@@ -682,7 +682,7 @@ export function SpectatorReader({ open, onClose, initialChapterId }: Props) {
 
           {/* Scroll surface */}
           <motion.div
-            ref={scrollRef}
+            ref={setScrollRef}
             className="relative h-full w-full overflow-y-auto"
             initial={{ y: 24 }}
             animate={{ y: 0 }}
