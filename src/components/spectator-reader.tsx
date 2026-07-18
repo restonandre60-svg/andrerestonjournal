@@ -686,7 +686,8 @@ export function SpectatorReader({ open, onClose, initialChapterId }: Props) {
           {/* Scroll surface */}
           <motion.div
             ref={setScrollRef}
-            className="relative h-full w-full overflow-y-auto"
+            className="absolute inset-0 overflow-y-auto overscroll-contain touch-pan-y"
+            style={{ WebkitOverflowScrolling: "touch" }}
             initial={{ y: 24 }}
             animate={{ y: 0 }}
             exit={{ y: 24 }}
